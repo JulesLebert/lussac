@@ -25,7 +25,6 @@ def get_ISI(data, unit_id: int, bin_size: float=1.0, max_time: float=50.0):
 		Size of bin for the histogram (in ms).
 	@param max_time (float):
 		Stop the ISI histogram at this value (in ms).
-
 	@return ISI (np.ndarray[uint32]) [time]:
 		ISI histogram of the unit.
 	@return bins (np.ndarray) [time+1]:
@@ -40,7 +39,6 @@ def get_ISI_from_spiketrain(spike_train: np.ndarray, bin_size: float=1.0, max_ti
 	"""
 	Computes the Inter-Spike Interval (time difference between consecutive spikes) of a spike train.
 	Takes ~4ms for 200k spikes.
-
 	@param spike_train (np.ndarray[uint64]) [n_spikes]:
 		Spike train to use (timings in sampling time).
 	@param bin_size (float):
@@ -49,7 +47,6 @@ def get_ISI_from_spiketrain(spike_train: np.ndarray, bin_size: float=1.0, max_ti
 		Stop the ISI histogram at this value (in ms).
 	@param sampling_f (float):
 		Sampling frequency of the recording (in Hz).
-
 	@return ISi (np.ndarray[uint32]) [time]:
 		ISI histogram of the spike train.
 	@return bins (np.ndarray) [time+1]
@@ -97,12 +94,10 @@ def get_autocorr(data, unit_id: int, bin_size: float=1.0/3.0, max_time: float=50
 	"""
 	Computes the auto-correlogram (time difference between spikes, consecutive and non-consecutive) of a unit.
 	Takes ~10ms for 200k spikes.
-
 	@param bin_size (float):
 		Size of bin for the histogram (in ms).
 	@param max_time (float):
 		Stop the autocorr histogram at this value (in ms).
-
 	@return auto_correlogram (np.ndarray[uint32]) [time]:
 		Auto-correlogram as a histogram.
 	@return bins (np.ndarray) [time+1]:
@@ -117,7 +112,6 @@ def get_autocorr_from_spiketrain(spike_train: np.ndarray, bin_size: float=1.0/3.
 	"""
 	Computes the auto-correlogram (time difference between spikes, consecutive and non-consecutive) of a spike train.
 	Takes ~10ms for 200k spikes.
-
 	@param spike_train (np.ndarray[uint64]) [n_spikes]:
 		Spike train to use (timings in sampling time).
 	@param bin_size (float):
@@ -126,7 +120,6 @@ def get_autocorr_from_spiketrain(spike_train: np.ndarray, bin_size: float=1.0/3.
 		Stop the autocorr histogram at this value (in ms).
 	@param sampling_f (float):
 		Sampling frequency of the recording (in Hz).
-
 	@return ISi (np.ndarray[uint32]) [time]:
 		Auto-correlogram as a histogram.
 	@return bins (np.ndarray) [time+1]
@@ -176,14 +169,12 @@ def get_crosscorr(data, unit1_id: int, unit2_id: int, bin_size: float=1.0/3.0, m
 	"""
 	Computes the cross-correlogram (time difference between two spike trains) between two units.
 	Takes ~3ms for 200k - 3.5k spikes.
-
 	@param unit1_id (int), unit2_id (int):
 		ID of both units containing the spike trains.
 	@param bin_size (float):
 		Size of bin for the histogram (in ms).
 	@param max_time (float):
 		Stop the crosscorr histogram at this value (in ms).
-
 	@return cross_correlogram (np.ndarray[uint32]) [time]:
 		Cross-correlogram as a histogram.
 	@return bins (np.ndarray) [time+1]:
@@ -201,7 +192,6 @@ def get_crosscorr_from_spiketrain(spike_train1: np.ndarray, spike_train2: np.nda
 	"""
 	Computes the cross-correlogram (time difference between two spike trains).
 	Takes ~3ms for 200k - 3.5k spikes.
-
 	@param spike_train1 (np.ndarray[uint64]) [n_spikes1]:
 		First spike train to use (timings in sampling time).
 	@param spike_train2 (np.ndarray[uint64]) [n_spikes2]:
@@ -212,7 +202,6 @@ def get_crosscorr_from_spiketrain(spike_train1: np.ndarray, spike_train2: np.nda
 		Stop the crosscorr histogram at this value (in ms).
 	@param sampling_f (float):
 		Sampling frequency of the recording (in Hz).
-
 	@return ISi (np.ndarray[uint32]) [time]:
 		Cross-correlogram as a histogram.
 	@return bins (np.ndarray) [time+1]
@@ -268,13 +257,11 @@ cdef void _compute_crosscorr_c(unsigned long* cross_corr, unsigned long* spike_t
 def get_firing_rate(data, unit_id: int, bin_size: float=2.0, as_Hz: bool=False):
 	"""
 	Computes the firing rate over time of a unit.
-
 	@param as_Hz (bool):
 		False = returns number of spikes in bin.
 		True = returns frequency in bin.
 	@param bin_size (float):
 		Size of bin for histogram (in s).
-
 	@return firing_rate (np.ndarray[uint32]) [time]:
 		Firing rate as a histogram.
 	@return bins (np.ndarray) [time+1]:
@@ -288,7 +275,6 @@ def get_firing_rate(data, unit_id: int, bin_size: float=2.0, as_Hz: bool=False):
 def get_firing_rate_from_spiketrain(spike_train: np.ndarray, t_max: int, bin_size: float=2.0, as_Hz: bool=False, sampling_f: float=3e4):
 	"""
 	Computes the firing rate over time of a spike train.
-
 	@param spike_train (np.ndarray[uint64]) [n_spikes]:
 		Spike train to use (timings in sampling time).
 	@param t_max (int):
@@ -300,7 +286,6 @@ def get_firing_rate_from_spiketrain(spike_train: np.ndarray, t_max: int, bin_siz
 		True = returns frequency in bin.
 	@param sampling_f (float):
 		Sampling frequency of the recording (in Hz).
-
 	@return firing_rate (np.ndarray[uint32]) [time]:
 		Firing rate as a histogram.
 	@return bins (np.ndarray) [time+1]:
@@ -348,10 +333,8 @@ def estimate_unit_contamination(data, unit_id: int, refractory_period: tuple=(0.
 	"""
 	Estimates the contamination of a unit based on the refractory period.
 	Takes ~1.5ms for 200k spikes.
-
 	@param refractory_period (tuple 2 float):
 		Lower and upper bound of the refractory period (in ms, excluded).
-
 	@return contamination (float between 0 and 1):
 		Estimated contamination ratio.
 	"""
@@ -366,7 +349,6 @@ def estimate_spike_train_contamination(spike_train: np.ndarray, refractory_perio
 	"""
 	Estimate the contamination of a spike train based on the refractory period.
 	Takes ~1.5ms for 200k spikes.
-
 	@param spike_train (np.ndarray[uint64]) [n_spikes]:
 		Timings of each spikes (in sampling time).
 	@param refractory_period (tuple of 2 floats):
@@ -375,7 +357,6 @@ def estimate_spike_train_contamination(spike_train: np.ndarray, refractory_perio
 		Number of sampling time in recording.
 	@param sampling_f (float):
 		Sampling frequency of recording (in Hz).
-
 	@return contamination (float between 0 and 1):
 		Estimated contamination ratio.
 	"""
@@ -443,14 +424,12 @@ cdef int _compute_nb_violations_c(unsigned long* spike_train, int N, int t_r):
 def get_nb_coincident_spikes(spike_train1: np.ndarray, spike_train2: np.ndarray, window: int=5):
 	"""
 	Returns the number of coincident spikes between two spike trains.
-
 	@param spike_train1 (np.ndarray[uint64]) [n_spikes1]:
 		First spike train to use (timings in sampling time).
 	@param spike_train2 (np.ndarray[uint64]) [n_spikes2]:
 		Second spike train to use (timings in sampling time).
 	@param window (int):
 		Window to consider spikes to be coincident (in sampling time). 0 = need to be exact same timing.
-
 	@return int:
 		Number of coincident spikes between the two spike trains.
 	"""
@@ -496,7 +475,6 @@ cdef int _compute_nb_coincident_spikes_c(unsigned long* spike_train1, unsigned l
 def estimate_cross_spiketrains_contamination(spike_train1: np.ndarray, spike_train2: np.ndarray, refractory_period: tuple, t_max: int, sampling_f: float):
 	"""
 	Estimates the contamination of a spike train based on the refractory period collision with another spike train.
-
 	@param spike_train1 (np.ndarray[uint64]) [n_spikes1]:
 		Timings of each spikes (in sampling time) for the spike train we want the contamination of.
 	@param spike_train2 (np.ndarray[uint64]) [n_spikes2]:
@@ -505,7 +483,6 @@ def estimate_cross_spiketrains_contamination(spike_train1: np.ndarray, spike_tra
 		Number of sampling time in recording.
 	@param sampling_f (float):
 		Sampling frequency of recording (in Hz).
-
 	@return contamination (float)
 		Estimated contamination ratio.
 	"""
@@ -563,7 +540,6 @@ cdef int _compute_cross_violations_c(unsigned long* spike_train1, unsigned long*
 
 def get_unit_supression_period(data, unit_id: int, contamination: float, **kwargs):
 	"""
-
 	"""
 
 	spike_train = data.get_unit_spike_train(unit_id=unit_id)
@@ -574,7 +550,6 @@ def get_unit_supression_period(data, unit_id: int, contamination: float, **kwarg
 
 def get_spiketrain_supression_period(spike_train: np.ndarray, contamination: float, t_max: int, sampling_f: float, bin_size: float=1.0/3.0, max_time: float=80.0, threshold: float=0.12, max_f: float=500):
 	"""
-
 	"""
 
 	correlogram, bins = get_autocorr_from_spiketrain(spike_train, bin_size, max_time, sampling_f)
@@ -605,7 +580,6 @@ def get_spiketrain_supression_period(spike_train: np.ndarray, contamination: flo
 def plot_unit(data, unit_id: int, save_folder: str, bin_size: float=1.0/3.0, max_time: float=50.0, fr_bin_size: float=2.0, ms_before: float=2, ms_after: float=2):
 	"""
 	Plots the characteristics of a unit in a given folder.
-
 	@param data (PhyData):
 		The data object.
 	@param unit_id (int):
@@ -639,7 +613,6 @@ def plot_unit_from_spiketrain(data, spike_train: np.ndarray, unit_id: int, save_
 							  fr_bin_size: float=2.0, ms_before: float=2, ms_after: float=2):
 	"""
 	Plots the characteristics of a unit in a given folder.
-
 	@param data (PhyData):
 		The data object.
 	@param spike_train (np.ndarray[uint64]) [n_spikes]:
@@ -674,7 +647,6 @@ def plot_unit_from_spiketrain(data, spike_train: np.ndarray, unit_id: int, save_
 def plot_unit_correlograms(unit_id: int, save_folder: str, ISI: tuple, auto_corr: tuple, firing_rate: tuple, waveforms: tuple):
 	"""
 	Plots the characteristics of a unit in a given folder.
-
 	@param unit_id (int):
 		Unit's ID.
 	@param save_folder (str):
@@ -743,7 +715,6 @@ def plot_unit_correlograms(unit_id: int, save_folder: str, ISI: tuple, auto_corr
 def plot_units(data, unit_ids: list, save_folder: str, bin_size: float=1.0/3.0, max_time: float=50.0, fr_bin_size: float=2.0, ms_before: float=2, ms_after: float=2, filename: str="units"):
 	"""
 	Plots the characteristics of multiple units in a given folder (as one file).
-
 	@param data (PhyData):
 		The data object.
 	@param unit_ids (list of int):
@@ -800,7 +771,6 @@ def plot_units(data, unit_ids: list, save_folder: str, bin_size: float=1.0/3.0, 
 def plot_units_from_spiketrain(data, spike_trains: list, unit_ids: list, save_folder: str, bin_size: float=1.0/3.0, max_time: float=50.0,
 							  fr_bin_size: float=2.0, ms_before: float=2, ms_after: float=2, filename: str="units"):
 	"""
-
 	"""
 
 	if len(unit_ids) == 0 or len(spike_trains) == 0:
@@ -841,7 +811,6 @@ def plot_units_from_spiketrain(data, spike_trains: list, unit_ids: list, save_fo
 def plot_units_correlograms(unit_ids: list, save_folder: str, ISI: tuple, auto_corr: tuple, firing_rate: tuple, waveforms: tuple, filename: str="units"):
 	"""
 	Plots the characteristics of multiple units in a given folder (as one file).
-
 	@param unit_ids (list of int):
 		List of units' ID.
 	@param save_folder (str):

@@ -3,7 +3,7 @@ import glob
 from setuptools import setup
 from Cython.Build import cythonize
 
-
+# do export CFLAGS=-I/home/jules/anaconda3/envs/lussac/lib/python3.8/site-packages/numpy/core/include/
 directives = {
 	"boundscheck": False,
 	"wraparound": False,

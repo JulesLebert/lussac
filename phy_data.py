@@ -5,6 +5,8 @@ import spiketoolkit
 
 import postprocessing.utils
 from postprocessing.wvf_extractor import WaveformExtractor
+import spikeinterface.extractors as se
+import probe_maps
 
 class PhyData:
 
@@ -18,7 +20,12 @@ class PhyData:
 		"""
 
 		self.sampling_f = params['recording']['sampling_rate']
-		self.recording = spikeextractors.BinDatRecordingExtractor(params['recording']['file'], params['recording']['sampling_rate'], params['recording']['n_channels'], params['recording']['dtype'])
+		# self.recording = spikeextractors.BinDatRecordingExtractor(params['recording']['file'], params['recording']['sampling_rate'], params['recording']['n_channels'], params['recording']['dtype'])
+		# self.recording = se.CustomTdtRecordingExtractor(params['recording']['file'], store=params['recording']['stores'])
+		# probe = probe_maps.generate_WARP_probe()
+		# self.recording = self.recording.set_probe(probe)
+		self.recording = spikeextractors.BinDatRecordingExtractor('{}/recording.dat'.format(params['phy_folders'][0]), params['recording']['sampling_rate'], params['recording']['n_channels'], params['recording']['dtype'])
+
 
 		self.uvolt_ratio = params['recording']['uvolt'] if 'uvolt' in params['recording'] else None
 

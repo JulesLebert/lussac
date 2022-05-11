@@ -1,47 +1,29 @@
 {
 	"recording": {
-		"file": "/home/jules/data/neuralData/test_warp_data/bin_TDT/test_BB_4.i16",
+		"file": "/home/jules/data/neuralData/raw/behaving/F1903_Trifle/BlockNellie-109",
 		"sampling_rate": 24414.0625,
 		"dtype": "int16",
-		"n_channels": 16,
-		"uvolt": 1e6,
-		"prb": "$PARAMS_FOLDER/arch.prb"
+		"n_channels": 32,
+		"stores": ["BB_4", "BB_5"],
+		"prb": "/home/jules/packages/lussac/params_examples/warp_32.prb",
+		"uvolt": 1
 	},
 	"spike_sorting": {
-		"MountainSort4": {
-			"output_folder": "$PARAMS_FOLDER/lussac/output",
-			"runs": [
-				{"name": "ms4", "params": {"clip_size": 60, "freq_min": 150, "freq_max": 6000, "detect_sign": 0, "adjacency_radius": 51, "detect_threshold": 3, "detect_interval": 10, "whiten": true, "curation": false, "filter": true, "noise_overlap_threshold": 0.6, "num_workers": 10}}
-			]
-		},
-		"MountainSort3": {
-			"output_folder": "$PARAMS_FOLDER/lussac/output",
-			"runs": [
-				{"name": "ms3", "params": {"clip_size": 60, "freq_min": 150, "freq_max": 6000, "freq_wid": 300, "samplerate": 30000, "detect_sign": 0, "detect_threshold": 3, "adjacency_radius": 51, "detect_interval": 10, "consolidation_factor": 0.9, "fit_stage": "true", "whiten": "true", "curate": "false", "noise_overlap_threshold": 0.6, "num_workers": 1}}
-			]
-		},
-		"Kilosort2": {
-			"output_folder": "$PARAMS_FOLDER/lussac/output",
-			"runs": [
-				{"name": "ks2_default", "params": {}},
-				{"name": "ks2_best", "params": {"projection_threshold": [8, 3], "detect_threshold": 5}},
-				{"name": "ks2_low_thresh", "params": {"projection_threshold": [5, 3], "detect_threshold": 5}}
-			]
-		}
+		
 	},
 	"phy_folders": [
-		
+		"/home/jules/data/neuralData/test_warp_data/sort_output/ms4"
 	],
 	"post_processing": {
-		"tmp_folder": "/tmp/lussac/",
-		"logs_folder": "$PARAMS_FOLDER/lussac/logs",
+		"tmp_folder": "/home/jules/tmp",
+		"logs_folder": "/home/jules/data/neuralData/test_warp_data/sort_output/lussac/logs",
 		"pipeline": {
 			"units_categorization": {
 				"spikes": {
 					"frequency": [0.5, 250.0],
 					"contamination": {
 						"refractory_period": [0.3, 0.9],
-						"max": 0.35
+						"max": 0.8
 					}
 				}
 			},
@@ -52,12 +34,12 @@
 				"spikes": {
 					"amplitude": {
 						"filter": [2, 600, 9000],
-						"min": 10,
+						"min": 0,
 						"waveforms": {
 							"ms_before": 2.0,
 							"ms_after": 2.0,
 							"max_spikes_per_unit": 4000,
-							"max_channels_per_waveforms": 64
+							"max_channels_per_waveforms": 2
 						}
 					}
 				}
@@ -69,7 +51,7 @@
 						"ms_before": 1.5,
 						"ms_after": 1.5,
 						"max_spikes_per_unit": 5000,
-						"max_channels_per_waveforms": 5
+						"max_channels_per_waveforms": 2
 					}
 				}
 			},
@@ -121,7 +103,7 @@
 				}
 			},
 			"export_sortings": {
-				"path": "$PARAMS_FOLDER/lussac/outputs",
+				"path": "/home/jules/data/neuralData/test_warp_data/sort_output/lussac/outputs",
 				"export_params": {
 
 				},
@@ -188,7 +170,7 @@
 				}
 			},
 			"export": {
-				"path": "$PARAMS_FOLDER/lussac/final_output",
+				"path": "/home/jules/data/neuralData/test_warp_data/sort_output/lussac/final_output",
 				"export_params": {
 
 				},
